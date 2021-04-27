@@ -95,6 +95,7 @@ LICENSE
     sed -i '/complete/'d ${aria2_conf}
     sed -i 's/force-save=false/force-save=true/g' ${aria2_conf}
     sed -i "s/max-concurrent-downloads=5/max-concurrent-downloads=8/g" ${aria2_conf}
+    sed -i "s/listen-port=51413/listen-port=41413/g" ${aria2_conf}
     echo "on-download-complete=${aria2_conf_dir}/clean.sh" >> ${aria2_conf}
     wget -qO ${aria2_conf_dir}/clean.sh https://raw.githubusercontent.com/e9965/CoLab_Tool/main/clean.sh
     echo "bt-external-ip=$(grep "server_addr" /content/frp.sh | cut -d" " -f3 | nslookup | grep -E "Address" | grep -oE "[[:digit:]]+.[^.]+.[^.]+.[^.]+." | grep -vE "^127")" >> ${aria2_conf}

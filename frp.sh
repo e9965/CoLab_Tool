@@ -25,7 +25,7 @@ remote_port = ${TPort}
 type = tcp
 local_port = 51413
 custom_domains = frp2.freefrp.net
-remote_port = 51413
+remote_port = 41413
 EOF
 ln -s /work/frp/frpc /bin/frpc
 fi
