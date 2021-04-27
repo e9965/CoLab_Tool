@@ -137,7 +137,7 @@ DOWN_BAIDU_FILE(){
         fileno=`expr ${fileno} - 1 `
     done
     fileno=${file[@]}
-    echo -e -n "${red}即將下載以上文件 | 按下 <Enter> 進行確認:${plain}"
+    echo -e -n "即將下載以上文件 | 按下 <Enter> 進行確認:"
     read -n 1
     rm -f ${filetxt}
     PARALLEL 10
@@ -211,16 +211,20 @@ TRY_PASS_UNZIP(){
     wait && exec 4>&-
 }
 PROCESS_UNZIP(){
-    export INPUT_DIR=${Temp_Path}
-    export TEMP_UNZIP_PATH=${Temp_Path}
-    export TEMP_FILE_LIST="${Temp_Path}/$$"
-    while true
-    do
-        UNZIP_INI
-        ARC_ARRAY
-        [[ ${#UNZIP_ARRAY[@]} > 0 ]] && TRY_PASS_UNZIP || break
-        unset UNZIP_ARRAY
-    done
+    if [[ ${Unzip_option} == 0 ]]
+    then
+        clear && echo "准备开始解压"
+        export INPUT_DIR=${Temp_Path}
+        export TEMP_UNZIP_PATH=${Temp_Path}
+        export TEMP_FILE_LIST="${Temp_Path}/$$"
+        while true
+        do
+            UNZIP_INI
+            ARC_ARRAY
+            [[ ${#UNZIP_ARRAY[@]} > 0 ]] && TRY_PASS_UNZIP || break
+            unset UNZIP_ARRAY
+        done
+    fi
 }
 CHECK_ARC(){
 	FILE_NAME=${1}
@@ -241,10 +245,14 @@ CHECK_ARC(){
 }
 #===================================================
 main(){
+    clear && echo "正在初始化Baidu-PCS-Go"
     INITIAL_BAIDU_PCS_GO
+    clear && echo "正在初始化密码文档"
     GET_UNZIP_PASSWD_FILE
+    clear && echo "准备下载文档"
     DOWNLOAD_FILE
     PROCESS_UNZIP
+    clear && echo "准备开始传回Google Drive"
     RSYNC_MOVE
     exit 0
 }
