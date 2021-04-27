@@ -10,7 +10,7 @@ export Unzip_thread=5
 export Temp_Path='/conetnt/Temp' && [[ ! -d ${Temp_Path} ]] && mkdir -p ${Temp_Path}
 #==================================================
 SHOW_ERROR(){
-    echo "[\033[41;37m ERROR \033[0m]:${1}" && exit 1
+    echo -e "[\033[41;37m ERROR \033[0m]:${1}" && exit 1
 }
 GET_NEW_VERSION(){
     export Baidu_Version=$(wget -qO - https://api.github.com/repos/qjfoidnh/BaiduPCS-Go/releases/latest|grep "tag_name"|cut -d"\"" -f4)
