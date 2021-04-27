@@ -117,7 +117,7 @@ DOWN_BAIDU_FILE(){
         }&
     done
     wait && exec 4>&-
-    bd rm /COLAB && wait
+    bd rm /COLAB/* && wait
 }
 DOWNLOAD_FILE(){
     TRANSFER_FILE
