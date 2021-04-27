@@ -112,12 +112,13 @@ DOWN_BAIDU_FILE(){
     do
         read -u4
         {
-            bd d --nocheck --ow --retry 10 --nocheck ${i}
+            bd d --nocheck --ow --retry 10 --nocheck ${i} --saveto ${Temp_Path}
             echo >&4
         }&
     done
     wait && exec 4>&-
     bd rm /COLAB/* && wait
+    > /content/share
 }
 DOWNLOAD_FILE(){
     TRANSFER_FILE
