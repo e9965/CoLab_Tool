@@ -156,4 +156,4 @@ echo "完成初始化 & 开始安装Aria2"
 Install_aria2 > /dev/null 2>&1
 echo "完成安装Aria2 & SSR 》 开始准备链接数据"
 crontab_update_start > /dev/null 2>&1
-echo -ne "${LINE}\n搭建完成！${LINE}\n"
+echo -ne "${LINE}\n搭建完成！\n${LINE}\n"

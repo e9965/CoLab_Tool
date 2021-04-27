@@ -38,26 +38,10 @@ DOWN_BAIDU_PCS_GO(){
     #RETURN 1:Required Update
     #RETURN 0:Does not require
 }
-RUN_BD_CODE(){
-    if [[ $(${1} | grep -oE "错误") == "" ]]
-    then
-        return 0
-    else
-        return 1
-    fi
-    #0：成功 1：错误
-}
 LOGIN_BAIDU_PCS_GO(){
     while true
     do
-        RUN_BD_CODE "bd login --cookies=\"${Baidu_Cookie}\""
-        if [[ $? == 1 ]] 
-        then
-            echo -ne "百度云登录失败，请临时输入新Cookies:"
-            read Baidu_Cookie
-        else
-            break
-        fi
+        bd login --cookies="${Baidu_Cookie}"
     done
 }
 CONFIG_BAIDU_PCS_GO(){
@@ -69,14 +53,7 @@ CONFIG_BAIDU_PCS_GO(){
     bd mkdir /COLAB
     while true
     do
-        RUN_BD_CODE "bd cd /COLAB"
-        if [[ $? == 1 ]]
-        then
-            echo "百度云更换目录失败。5秒后重试"
-            sleep 5s
-        else
-            break
-        fi
+        bd cd /COLAB
     done
 }
 INITIAL_BAIDU_PCS_GO(){
