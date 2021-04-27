@@ -2,7 +2,6 @@
 OLD_IFS=$IFS
 IFS=$(echo -en "\n\b")
 export Drive_basePath='/content/drive/MyDrive'
-export Baidu_Cookie="$(cat /content/cookie)"
 export SUB_PASSWD_FILE='/content/sub_passwd'
 export Unzip_option=${1}
     #Unzip_option=0 [解压] Unzip_option=1 [不解压]
@@ -39,7 +38,7 @@ DOWN_BAIDU_PCS_GO(){
     #RETURN 0:Does not require
 }
 LOGIN_BAIDU_PCS_GO(){
-    bd login --cookies=${Baidu_Cookie}
+    bd login --cookies="$(cat /content/cookie)"
 }
 CONFIG_BAIDU_PCS_GO(){
     LOGIN_BAIDU_PCS_GO
@@ -95,6 +94,7 @@ GET_BAIDU_FILE_LIST(){
     done
 }
 DOWN_BAIDU_FILE(){
+    GET_BAIDU_FILE_LIST
     fileno=$(wc -l ${filetxt}) && fileno=${fileno%%\ *}
     while [[ ${fileno} > 0 ]]
     do
