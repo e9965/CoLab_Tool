@@ -39,7 +39,7 @@ DOWN_BAIDU_PCS_GO(){
     #RETURN 0:Does not require
 }
 LOGIN_BAIDU_PCS_GO(){
-    bd login --cookies="${Baidu_Cookie}"
+    bd login --cookies=${Baidu_Cookie}
 }
 CONFIG_BAIDU_PCS_GO(){
     LOGIN_BAIDU_PCS_GO
