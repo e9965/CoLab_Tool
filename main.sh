@@ -46,8 +46,6 @@ CONFIG_BAIDU_PCS_GO(){
     bd config set --max_download_load 2 > /dev/null 2>&1
     bd config set --cache_size 256KB > /dev/null 2>&1
     bd config set --savedir="${Temp_Path}" > /dev/null 2>&1
-    bd config set --enable_https=false > /dev/null 2>&1
-	bd config set -user_agent "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android" > /dev/null 2>&1
     bd mkdir /COLAB
     bd cd /COLAB
 }
@@ -76,7 +74,7 @@ GET_UNZIP_PASSWD_FILE(){
     [[ -f ${SUB_PASSWD_FILE} ]] && export PASSWD=($(cat ${PASSWD_FILE}) $(cat ${SUB_PASSWD_FILE})) || export PASSWD=($(cat ${PASSWD_FILE}))
 }
 TRANSFER_FILE(){
-    for i in $(cat /content/share_link)
+    for i in $(cat /content/share)
     do
         bd transfer --fix ${i}
     done
