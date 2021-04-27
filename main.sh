@@ -42,10 +42,12 @@ LOGIN_BAIDU_PCS_GO(){
 }
 CONFIG_BAIDU_PCS_GO(){
     LOGIN_BAIDU_PCS_GO
-    bd config set --max_parallel 20
-    bd config set --max_download_load 2
-    bd config set --cache_size 256KB
-    bd config set --savedir="${Temp_Path}"
+    bd config set --max_parallel 20 > /dev/null 2>&1
+    bd config set --max_download_load 2 > /dev/null 2>&1
+    bd config set --cache_size 256KB > /dev/null 2>&1
+    bd config set --savedir="${Temp_Path}" > /dev/null 2>&1
+    bd config set --enable_https=false > /dev/null 2>&1
+	bd config set -user_agent "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android" > /dev/null 2>&1
     bd mkdir /COLAB
     bd cd /COLAB
 }
@@ -112,7 +114,7 @@ DOWN_BAIDU_FILE(){
     do
         read -u4
         {
-            bd download --ow --status --retry 10 --nocheck ${i}
+            bd d --nocheck -mode locate --ow --retry 10 --nocheck ${i}
             echo >&4
         }&
     done
