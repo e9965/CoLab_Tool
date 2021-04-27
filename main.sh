@@ -104,7 +104,8 @@ PARALLEL(){
     #在fd4中放置了$thread_num个回车符
 }
 GET_UNZIP_PASSWD_FILE(){
-    wget -qO /content/passwd https://raw.githubusercontent.com/e9965/CoLab_Tool/main/passwd.conf || SHOW_ERROR "无法获取Password文件"
+    PASSWD_FILE=/content/passwd
+    wget -O ${PASSWD_FILE} https://raw.githubusercontent.com/e9965/CoLab_Tool/main/passwd.conf || SHOW_ERROR "无法获取Password文件"
     [[ -f ${SUB_PASSWD_FILE} ]] && export PASSWD=($(cat ${PASSWD_FILE}) $(cat ${SUB_PASSWD_FILE})) || export PASSWD=($(cat ${PASSWD_FILE}))
 }
 TRANSFER_FILE(){
