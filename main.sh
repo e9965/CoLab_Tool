@@ -2,7 +2,7 @@
 OLD_IFS=$IFS
 IFS=$(echo -en "\n\b")
 export Drive_basePath='/content/drive/MyDrive'
-export Baidu_Cookie='/content/cookie'
+export Baidu_Cookie="$(cat /content/cookie)"
 export SUB_PASSWD_FILE='/content/sub_passwd'
 export Unzip_option=${1}
     #Unzip_option=0 [解压] Unzip_option=1 [不解压]
@@ -48,24 +48,19 @@ RUN_BD_CODE(){
     #0：成功 1：错误
 }
 LOGIN_BAIDU_PCS_GO(){
-    [[ ! -f ${Baidu_Cookie} ]] && SHOW_ERROR "找不到Cookie文件。"
     while true
     do
-        RUN_BD_CODE "bd login --cookies=\"$(cat ${Baidu_Cookie})\""
+        RUN_BD_CODE "bd login --cookies=\"${Baidu_Cookie}\""
         if [[ $? == 1 ]] 
         then
             echo -ne "百度云登录失败，请临时输入新Cookies:"
-            read TEMP_COOKIES
-            echo ${TEMP_COOKIES} > ${Baidu_Cookie}
+            read Baidu_Cookie
         else
             break
         fi
     done
 }
 CONFIG_BAIDU_PCS_GO(){
-    #BEGIN CHECK_COOKIE
-    [[ -f ${Baidu_Cookie} ]] && SHOW_ERROR "找不到百度CookieFile"
-    #END CHECK_COOKIE
     LOGIN_BAIDU_PCS_GO
     bd config set --max_parallel 20
     bd config set --max_download_load 2
