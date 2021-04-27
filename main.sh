@@ -112,7 +112,7 @@ DOWN_BAIDU_FILE(){
     do
         read -u4
         {
-            bd d --nocheck -mode locate --ow --retry 10 --nocheck ${i}
+            bd d --nocheck --ow --retry 10 --nocheck ${i}
             echo >&4
         }&
     done
