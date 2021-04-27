@@ -39,10 +39,7 @@ DOWN_BAIDU_PCS_GO(){
     #RETURN 0:Does not require
 }
 LOGIN_BAIDU_PCS_GO(){
-    while true
-    do
-        bd login --cookies="${Baidu_Cookie}"
-    done
+    bd login --cookies="${Baidu_Cookie}"
 }
 CONFIG_BAIDU_PCS_GO(){
     LOGIN_BAIDU_PCS_GO
@@ -51,10 +48,7 @@ CONFIG_BAIDU_PCS_GO(){
     bd config set --cache_size 256KB
     bd config set --savedir="${Temp_Path}"
     bd mkdir /COLAB
-    while true
-    do
-        bd cd /COLAB
-    done
+    bd cd /COLAB
 }
 INITIAL_BAIDU_PCS_GO(){
     if [[ ! -f /bin/bd ]]
