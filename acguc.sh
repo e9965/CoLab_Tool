@@ -16,7 +16,6 @@ function check_Cookie(){
 
 function int(){
     check_Cookie || check_State
-    create_Temp downList.acg
     set_Temp
     if [[ -d ${tempDownPath} ]]
     then
@@ -71,7 +70,6 @@ function create_Temp(){
 
 function show_Target(){
     echo -e "${yellow}[INFO]${plain}正在检查相关下载源文件链接"
-    [[ ! -f downList.acg ]] && check_State
     [[ $(cat downList.acg) == "" ]] || echo -e "${yellow}[INFO]${plain}没有读取到相关下载链接" && check_State
     echo -e "${yellow}[INFO]${plain}即将下载以下链接："
     local i
