@@ -70,7 +70,7 @@ function create_Temp(){
 
 function show_Target(){
     echo -e "${yellow}[INFO]${plain}正在检查相关下载源文件链接"
-    [[ $(cat downList.acg) == "" ]] || echo -e "${yellow}[INFO]${plain}没有读取到相关下载链接" && check_State
+    [[ $(cat downList.acg) == "" ]] && echo -e "${yellow}[INFO]${plain}没有读取到相关下载链接" && check_State
     echo -e "${yellow}[INFO]${plain}即将下载以下链接："
     local i
     for i in $(cat downList.acg)
