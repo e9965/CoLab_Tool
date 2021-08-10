@@ -86,7 +86,7 @@ function down_Target(){
 }
 
 function exit_Clean(){
-    rm -f "*.acg"
+    rm -rf "*.acg"
 }
 
 function trans_Drive(){
