@@ -31,17 +31,12 @@ function set_Temp(){
 }
 
 function store_Target(){
-    local i
-    local j
-    local title
-    local dataNum
-    local tempFileName
     title=$(grep -oE "<title>.+</title>" currentPage.acg | sed -E "s/&#8211\;.+|<title>|<\/title>//g")
     currentDir=${tempDownPath}/${title}
     mkdir ${currentDir}
     grep -oE "inn-singular__post__body__content inn-content-reseter.+inn-singular__post__toolbar" currentPage.acg \
     | grep -oE "https://[^\"]+" | cut -d"=" -f3 | tr -s '\n' |uniq > currentData.acg
-    dataNum=$(wc -l currentData.acg)
+    dataNum=$(wc -l currentData.acg | cut -d" " -f1)
     i=1
     for j in $(cat currentData.acg)
     do
@@ -56,7 +51,7 @@ function store_Target(){
 }
 
 function check_State(){
-    echo -en "${red}[WARNING]${plain}请查看相关错误信息并解决。按Enter退出软件。" && read && exit
+    echo -e "${red}[WARNING]${plain}请查看相关错误信息并解决。按Enter退出软件。" && read && exit
 }
 
 function create_Temp(){
@@ -78,13 +73,12 @@ function show_Target(){
         echo 【${i}】
     done
     echo ${line}
-    echo -ne "${green}[INPUT]${plain}请按下Enter以继续：" && read && echo ${line}
 }
 
 function down_Target(){
-    local i
     for i in $(cat downList.acg)
     do
+        echo -e "${yellow}[INFO]${plain}开始下载【${i}】"
         curl -sL --retry 5 --cookie "${KEY}" "${i}" > currentPage.acg
         store_Target
         set_Temp
