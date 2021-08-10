@@ -14,15 +14,7 @@ function check_Cookie(){
     [[ $(curl -s -L --retry 5 --cookie "${KEY}" "https://www.ummoe.com/vip%e4%b8%93%e7%94%a8%e4%ba%a4%e6%b5%81%e7%be%a4/" | grep -oE "erphp-login-must") == "" ]] || return 2
 }
 
-function check_Web(){
-    echo -e "${yellow}[INFO]${plain}正在检查网站可访问性"
-    local i
-    i=$(curl -sIL $(curl --retry 5 -Ls acguc.com | grep -oE "panel-cover__description.+>" | grep -oE "http[^\"]+") | grep -E "location" | tail -1 | grep -oE "http[[:print:]]+")
-    curl -sIL ${i} || return 2
-}
-
 function int(){
-    check_Web || check_State
     check_Cookie || check_State
     create_Temp downList.acg
     set_Temp
@@ -37,22 +29,6 @@ function int(){
 function set_Temp(){
     create_Temp currentPage.acg
     create_Temp currentData.acg
-}
-
-function ask_Target(){
-    while true
-    do
-        echo ${line}
-        echo -ne "${green}[INPUT]${plain}请输入链接："
-        read rawLink
-        if [[ ! ${rawLink} == "" ]]
-        then
-            echo ${rawLink} >> downList.acg
-            echo ${line}
-        else
-            break
-        fi
-    done    
 }
 
 function store_Target(){
@@ -94,6 +70,8 @@ function create_Temp(){
 }
 
 function show_Target(){
+    echo -e "${yellow}[INFO]${plain}正在检查相关下载源文件链接"
+    [[ ! -f downList.acg ]] && check_State
     [[ $(cat downList.acg) == "" ]] || echo -e "${yellow}[INFO]${plain}没有读取到相关下载链接" && check_State
     echo -e "${yellow}[INFO]${plain}即将下载以下链接："
     local i
@@ -126,7 +104,6 @@ function trans_Drive(){
 }
 #==================================
 int
-ask_Target
 show_Target
 down_Target
 trans_Drive
