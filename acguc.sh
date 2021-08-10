@@ -47,7 +47,7 @@ function store_Target(){
         curl -sL --retry 5 --cookie "${KEY}" "${j}" -o "${currentDir}/${i}.${tempFileType}" 
         let "i++"
     done
-    echo -e "${green}[FINISH]${plain}【${title}】已完成下载"
+    echo -e "\n${green}[FINISH]${plain}【${title}】已完成下载"
 }
 
 function check_State(){
