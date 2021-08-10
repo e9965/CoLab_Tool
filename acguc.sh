@@ -37,13 +37,13 @@ function store_Target(){
     grep -oE "inn-singular__post__body__content inn-content-reseter.+inn-singular__post__toolbar" currentPage.acg \
     | grep -oE "https://[^\"]+" | cut -d"=" -f3 | tr -s '\n' |uniq > currentData.acg
     dataNum=$(wc -l currentData.acg | cut -d" " -f1)
+    mkdir ${tempDownPath}/${title}
     i=1
     for j in $(cat currentData.acg)
     do
-        mkdir ${tempDownPath}/${title}
         tempFileName=${j##*/}
         tempFileType=${tempFileName##*\.}
-        echo -e "${yellow}[INFO]${plain}下载中【${i}/${dataNum}】"
+        echo -ne "${yellow}[INFO]${plain}下载中【${i}/${dataNum}】||"
         curl -sL --retry 5 --cookie "${KEY}" "${j}" -o "${currentDir}/${i}.${tempFileType}" 
         let "i++"
     done
