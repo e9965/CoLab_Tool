@@ -21,11 +21,6 @@ type = tcp
 local_port = ${OTPort}
 custom_domains = frp2.freefrp.net
 remote_port = ${TPort}
-[$(head -c 6 /dev/random | base64)]
-type = tcp
-local_port = 51413
-custom_domains = frp2.freefrp.net
-remote_port = 41413
 EOF
 ln -s /work/frp/frpc /bin/frpc
 fi

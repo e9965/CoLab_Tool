@@ -22,8 +22,11 @@ CHECK_CORE_FILE() {
     fi
 }
 
-MVGD(){
-    rsync -r --info=progress2 -a --remove-source-files  ${TEMP_FILE_PATH} /content/drive/MyDrive/${TEMP_FILE_PATH##*\/}
+#MVGD(){
+#    rsync -r --info=progress2 -a --remove-source-files  ${TEMP_FILE_PATH} /content/drive/MyDrive/${TEMP_FILE_PATH##*\/}
+#}
+MVDOCKER(){
+    drc push "${TEMP_FILE_PATH}" "/${TEMP_FILE_PATH##*/}"
 }
 CHECK_CORE_FILE "$@"
 CHECK_PARAMETER "$@"
@@ -33,5 +36,7 @@ GET_TASK_INFO
 GET_DOWNLOAD_DIR
 CONVERSION_PATH
 CLEAN_UP
-MVGD
+#MVGD
+MVDOCKER
+wait
 exit 0
